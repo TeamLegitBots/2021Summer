@@ -1,0 +1,155 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.robot.Robot;
+import com.qualcomm.robotcore.util.Hardware;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+
+
+@TeleOp(name = "TeleopOneP")
+//@Disabled
+public class TeleopPushbot extends LinearOpMode {
+
+    ChassisV1 robot = new ChassisV1();
+
+    double sensitivity = 1;
+
+
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+
+        robot.init(hardwareMap);
+
+        
+
+        robot.FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        robot.FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+
+
+
+        double wobble_goal_arm_pos = 1;
+        double WAerror=0;
+        int WAservo_pos =0;
+        double shooterspeed = .46;
+
+
+        waitForStart();
+
+
+        while (opModeIsActive()) {
+
+            float intake = gamepad1.left_trigger;
+            float wheelouttake = gamepad1.right_trigger;
+            float outtake = gamepad1.right_trigger;
+
+            // Code for the four drive motors
+            /*float drive = -gamepad1.right_stick_x;
+            float strafe = gamepad1.left_stick_x;
+            float turn = gamepad1.left_stick_y;
+            float FR = drive - turn - strafe;
+            float FL = -drive - turn  + strafe;
+            float BR = drive - turn + strafe;
+            float BL = -drive  - turn - strafe;
+
+            */
+
+
+            /*
+            robot.FrontRight.setPower(sensitivity * FR);
+            robot.FrontLeft.setPower(sensitivity * FL );
+            robot.BackRight.setPower(sensitivity * BR);
+            robot.BackLeft.setPower(sensitivity * BL);
+            */
+            setDriveMotorPower();
+
+
+            //automatic ringgate
+            /*if ((outtake<-.1 && intake>.1) || (intake<-.1 )){
+                robot.Ring_gate.setPosition(1);
+            } else{
+                robot.Ring_gate.setPosition(0);
+            }
+
+
+            */
+
+            //manual ringgate
+
+
+            //drop intake
+
+
+
+            // Drag the sparkmini system down
+
+
+            // Stop if not linear motion kit input
+            if(gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
+
+
+            }
+
+
+
+
+
+
+            //wobble goal arm
+
+            if(gamepad1.dpad_up && wobble_goal_arm_pos<3){
+                wobble_goal_arm_pos = wobble_goal_arm_pos+1;
+                sleep(500);
+            }
+            if(gamepad1.dpad_down && wobble_goal_arm_pos>1){
+                wobble_goal_arm_pos = wobble_goal_arm_pos-1;
+                sleep(500);
+
+            }
+            //telemetry.addData("target position",wobble_goal_arm_pos);
+            //telemetry.addData("current position",robot.Wgoalarm.getCurrentPosition());
+            //telemetry.update();
+
+            //move Wgoal arm to position 1
+
+
+
+        }
+
+    }
+
+    public void setDriveMotorPower(){
+        float turn = gamepad1.right_stick_x;
+        float strafe = -gamepad1.left_stick_x;
+        float drive = gamepad1.left_stick_y;
+
+        float FR = -strafe + drive + turn;
+        float FL = strafe - drive  + turn;
+        float BR = strafe + drive + turn;
+        float BL = strafe  + drive - turn;
+
+        robot.FrontRight.setPower(0.75 * FR);
+        robot.FrontLeft.setPower(sensitivity * FL );
+        robot.BackRight.setPower(0.75* BR);
+        robot.BackLeft.setPower(sensitivity * BL);
+    }
+
+}
+
+ 
