@@ -1,0 +1,68 @@
+package org.firstinspires.ftc.teamcode;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+import org.openftc.easyopencv.OpenCvPipeline;
+
+public class skystonedetector extends OpenCvPipeline {
+    public Mat FMatrix = new Mat();
+    public static String Position;
+    public skystonedetector() {
+
+    }
+    @Override
+    public final Mat processFrame (Mat input) {
+        input.copyTo(FMatrix);
+
+        if (FMatrix.empty()) {
+            return input;
+        }
+        Imgproc.cvtColor(FMatrix,FMatrix,Imgproc.COLOR_YCrCb2BGR);
+
+        Mat farleft = FMatrix.submat(120,150,10,50);
+        Mat midleft = FMatrix.submat(120,150,60,100);
+        Mat midright = FMatrix.submat(120,150,110,160);
+        Mat farright = FMatrix.submat(120,150,170,220);
+
+        double farlefttot = Core.sumElems(farleft).val[2];
+        double midlefttot = Core.sumElems(midleft).val[2];
+        double midrighttot = Core.sumElems(midright).val[2];
+        double farrighttot = Core.sumElems(farright).val[2];
+
+        if (farlefttot > midlefttot) {
+            if (farlefttot>midrighttot){
+                if (farlefttot>farrighttot){
+                    Position = "FARLEFT";
+                }
+
+            }
+        }
+        else if (midlefttot> farlefttot) {
+            if (midlefttot> midrighttot) {
+                if (midlefttot>farrighttot) {
+                    Imgproc.rectangle(FMatrix,new Rect(10,120,40,30),new Scalar(0,255,0));
+                    Position = "MIDLEFT";
+                }
+            }
+        }
+        else if (farrighttot> farlefttot) {
+            if (farrighttot> midlefttot) {
+                if (farrighttot>midrighttot) {
+                    Position = "FARRIGHT";
+                }
+            }
+        }
+        else if (midrighttot> farlefttot) {
+            if (midrighttot> midlefttot) {
+                if (midrighttot>farrighttot) {
+                    Position = "MIDRIGHT";
+                }
+            }
+        }
+return FMatrix;
+    }
+
+}
