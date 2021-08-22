@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.java;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,9 +13,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name = "TeleopOneP")
 //@Disabled
-public class TeleopPushbot extends LinearOpMode {
+public class Teleop extends LinearOpMode {
 
-    ChassisV1 robot = new ChassisV1();
+    hardwaremap robot = new hardwaremap();
 
     double sensitivity = 1;
 
@@ -28,12 +28,15 @@ public class TeleopPushbot extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        
+
 
         robot.FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        robot.rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         robot.FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -53,6 +56,8 @@ public class TeleopPushbot extends LinearOpMode {
         waitForStart();
 
 
+
+
         while (opModeIsActive()) {
 
             float intake = gamepad1.left_trigger;
@@ -60,7 +65,7 @@ public class TeleopPushbot extends LinearOpMode {
             float outtake = gamepad1.right_trigger;
 
             // Code for the four drive motors
-            /*float drive = -gamepad1.right_stick_x;
+            float drive = -gamepad1.right_stick_x;
             float strafe = gamepad1.left_stick_x;
             float turn = gamepad1.left_stick_y;
             float FR = drive - turn - strafe;
@@ -68,7 +73,7 @@ public class TeleopPushbot extends LinearOpMode {
             float BR = drive - turn + strafe;
             float BL = -drive  - turn - strafe;
 
-            */
+
 
 
             /*
@@ -88,7 +93,10 @@ public class TeleopPushbot extends LinearOpMode {
             }
 
 
+
+
             */
+
 
             //manual ringgate
 
@@ -102,10 +110,15 @@ public class TeleopPushbot extends LinearOpMode {
 
             // Stop if not linear motion kit input
             if(gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
-
-
+                robot.leftWheel.setPower(0);
+                robot.rightWheel.setPower(0);
             }
-
+            if(gamepad1.left_trigger == 1 ) {
+                robot.leftWheel.setPower(1);
+            }
+            if(gamepad1.left_trigger == 1) {
+                robot.rightWheel.setPower(-1);
+            }
 
 
 
@@ -151,5 +164,3 @@ public class TeleopPushbot extends LinearOpMode {
     }
 
 }
-
- 
