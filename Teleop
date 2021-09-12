@@ -1,5 +1,3 @@
-package org.firstinspires.ftc.teamcode.java;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robot.Robot;
@@ -15,9 +13,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 //@Disabled
 public class Teleop extends LinearOpMode {
 
-    hardwaremap robot = new hardwaremap();
+    org.firstinspires.ftc.teamcode.hardwaremap robot = new org.firstinspires.ftc.teamcode.hardwaremap();
 
     double sensitivity = 1;
+
 
 
 
@@ -65,17 +64,12 @@ public class Teleop extends LinearOpMode {
             float outtake = gamepad1.right_trigger;
 
             // Code for the four drive motors
-            float drive = -gamepad1.right_stick_x;
-            float strafe = gamepad1.left_stick_x;
-            float turn = gamepad1.left_stick_y;
-            float FR = drive - turn - strafe;
-            float FL = -drive - turn  + strafe;
-            float BR = drive - turn + strafe;
-            float BL = -drive  - turn - strafe;
 
 
-
-
+telemetry.addData("LF Power: " , robot.FrontLeft.getPower() );
+            telemetry.addData("LB Power: " , robot.BackLeft.getPower() );
+            telemetry.addData("RF Power: " , robot.FrontRight.getPower() );
+            telemetry.addData("RB Power: " , robot.BackRight.getPower() );
             /*
             robot.FrontRight.setPower(sensitivity * FR);
             robot.FrontLeft.setPower(sensitivity * FL );
@@ -119,9 +113,37 @@ public class Teleop extends LinearOpMode {
             if(gamepad1.left_trigger == 1) {
                 robot.rightWheel.setPower(-1);
             }
+            if(gamepad1.right_trigger == 1) {
+                robot.leftWheel.setPower(-1);
+                robot.rightWheel.setPower(1);
+            }
 
+            if(gamepad1.dpad_up == true) {
+                robot.cheesePress.setPosition(0);
+                robot.grabber.setPosition(1);
+            }
 
-
+            if(gamepad1.dpad_down == true) {
+                robot.cheesePress.setPosition(1);
+                robot.grabber.setPosition(0);
+            }
+            if(gamepad2.left_trigger == 0 ) {
+                robot.leftWheel.setPower(0);
+                robot.rightWheel.setPower(0);
+            }
+            if(gamepad2.right_trigger == 0 ) {
+                robot.leftWheel.setPower(0);
+                robot.rightWheel.setPower(0);
+            }
+            if(gamepad2.right_trigger == 1){
+                robot.fourbar.setPower(0.95);
+            }
+            if(gamepad2.left_trigger == 1){
+                robot.fourbar.setPower(-0.95);
+            }
+            if(gamepad2.x == true){
+            robot.fourbar.setPower(0);
+            }
 
 
             //wobble goal arm
@@ -152,10 +174,10 @@ public class Teleop extends LinearOpMode {
         float strafe = -gamepad1.left_stick_x;
         float drive = gamepad1.left_stick_y;
 
-        float FR = -strafe + drive + turn;
-        float FL = strafe - drive  + turn;
-        float BR = strafe + drive + turn;
-        float BL = strafe  + drive - turn;
+        float FR = +strafe + drive - turn;
+        float FL = -strafe + drive  + turn;
+        float BR = -strafe - drive - turn;
+        float BL = -strafe  +drive - turn;
 
         robot.FrontRight.setPower(0.75 * FR);
         robot.FrontLeft.setPower(sensitivity * FL );
@@ -164,3 +186,4 @@ public class Teleop extends LinearOpMode {
     }
 
 }
+
