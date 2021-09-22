@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.java;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.motors.GoBILDA5202Series;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -42,11 +42,15 @@ public class hardwaremap{
     public DcMotor BackLeft = null;
     public DcMotor leftWheel = null;
     public DcMotor rightWheel = null;
+    public DcMotor fourbar = null;
 
 
 
 
 
+
+    public Servo cheesePress = null;
+    public Servo grabber = null;
     public ColorSensor colorSensor = null;
 
 
@@ -98,6 +102,10 @@ public class hardwaremap{
 
         leftWheel = hwMap.get(DcMotor.class, "wheel1");
         rightWheel = hwMap.get(DcMotor.class, "wheel2");
+        cheesePress = hwMap.get(Servo.class,"Rservo");
+        grabber = hwMap.get(Servo.class,"Lservo");
+
+        fourbar = hwMap.get(DcMotor.class, "fourBar");
 
 
 
@@ -136,7 +144,7 @@ public class hardwaremap{
 
         leftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        fourbar.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Set the direction Reverse for the Right side motors so we can get all positive value inputs
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
