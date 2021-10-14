@@ -1,15 +1,18 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.java;
 
 import com.qualcomm.hardware.motors.GoBILDA5202Series;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static java.lang.Thread.sleep;
+
+import android.graphics.Color;
 
 
 /**
@@ -40,18 +43,12 @@ public class hardwaremap{
     public DcMotor FrontLeft = null;
     public DcMotor BackRight = null;
     public DcMotor BackLeft = null;
-    public DcMotor leftWheel = null;
-    public DcMotor rightWheel = null;
-    public DcMotor fourbar = null;
-
-
-
-
-
-
-    public Servo cheesePress = null;
-    public Servo grabber = null;
-    public ColorSensor colorSensor = null;
+    public DcMotor Arm = null;
+    public DcMotor Carousel = null;
+    public DcMotor Intake = null;
+    public Servo Bucket = null;
+    public Servo Pivot = null;
+    public ColorSensor ColorSensor = null;
 
 
     //public ColorSensor colorSensor = null;
@@ -82,6 +79,7 @@ public class hardwaremap{
     /* local OpMode members. */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
+    private DcMotor ArmMove;
 
     public hardwaremap() {
 
@@ -99,13 +97,15 @@ public class hardwaremap{
         FrontLeft = hwMap.get(DcMotor.class, "LF");
         BackRight = hwMap.get(DcMotor.class, "RB");
         BackLeft = hwMap.get(DcMotor.class, "LB");
+        Arm = hwMap.get(DcMotor.class ,"AM");
+        Carousel = hwMap.get(DcMotor.class, "CL");
+        Intake = hwMap.get(DcMotor.class, "IT");
+        Bucket = hwMap.get(Servo.class, "SO");
+        Pivot = hwMap.get(Servo.class, "PT");
+        ColorSensor = hwMap.get(ColorSensor.class, "CS");
 
-        leftWheel = hwMap.get(DcMotor.class, "wheel1");
-        rightWheel = hwMap.get(DcMotor.class, "wheel2");
-        cheesePress = hwMap.get(Servo.class,"Rservo");
-        grabber = hwMap.get(Servo.class,"Lservo");
 
-        fourbar = hwMap.get(DcMotor.class, "fourBar");
+
 
 
 
@@ -127,9 +127,10 @@ public class hardwaremap{
         BackLeft.setPower(0);
         BackRight.setPower(0);
         FrontRight.setPower(0);
+        Arm.setPower(0);
+        Intake.setPower(0);
+        Bucket.setPosition(0);
 
-        leftWheel.setPower(0);
-        rightWheel.setPower(0);
 
 
         // Set all motors to run without encoders.
@@ -141,21 +142,27 @@ public class hardwaremap{
         BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        fourbar.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
 
         //Set the direction Reverse for the Right side motors so we can get all positive value inputs
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
+        Arm.setDirection(DcMotorSimple.Direction.REVERSE);
+        Intake.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }
@@ -199,4 +206,3 @@ public class hardwaremap{
 
 }
  */
-
