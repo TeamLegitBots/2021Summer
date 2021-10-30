@@ -31,10 +31,10 @@ public class Teleop extends LinearOpMode {
         waitForStart();
         
         while (opModeIsActive()) {
-            telemetry.addData("LF Power: " , robot.FrontLeft.getPower() );
-            telemetry.addData("LB Power: " , robot.BackLeft.getPower() );
-            telemetry.addData("RF Power: " , robot.FrontRight.getPower() );
-            telemetry.addData("RB Power: " , robot.BackRight.getPower() );
+            telemetry.addData("FL Power: " , robot.FrontLeft.getPower() );
+            telemetry.addData("BL Power: " , robot.BackLeft.getPower() );
+            telemetry.addData("FR Power: " , robot.FrontRight.getPower() );
+            telemetry.addData("BR Power: " , robot.BackRight.getPower() );
             /*
             robot.FrontRight.setPower(sensitivity * FR);
             robot.FrontLeft.setPower(sensitivity * FL );
@@ -42,6 +42,7 @@ public class Teleop extends LinearOpMode {
             robot.BackLeft.setPower(sensitivity * BL);
             */
             setDriveMotorPower();
+            
 
 
         }
