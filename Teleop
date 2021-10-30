@@ -16,7 +16,8 @@ public class Teleop extends LinearOpMode {
     org.firstinspires.ftc.teamcode.hardwaremap robot = new org.firstinspires.ftc.teamcode.hardwaremap();
 
     double sensitivity = 1;
-
+    double armpower = 1;
+    double intakepower = 1;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -42,8 +43,19 @@ public class Teleop extends LinearOpMode {
             robot.BackLeft.setPower(sensitivity * BL);
             */
             setDriveMotorPower();
+            if(gamepad1.right_trigger > 0.1) {
+            robot.Arm.setPower(armpower * gamepad1.right_trigger);
+            }
+            if(gamepad1.left_trigger > 0.1) {
+            robot.Intake.setPower(intakepower * gamepad1.left_trigger);
+            }
+            if(gamepad1.x == true) {
+            robot.Bucket.setPosition(1);
+            }
+            if(gamepad1.y == true) {
+            robot.Bucket.setPosition(0);
+            }
             
-
 
         }
 
