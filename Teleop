@@ -1,3 +1,5 @@
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robot.Robot;
@@ -30,7 +32,7 @@ public class Teleop extends LinearOpMode {
         robot.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
-        
+
         while (opModeIsActive()) {
             telemetry.addData("FL Power: " , robot.FrontLeft.getPower() );
             telemetry.addData("BL Power: " , robot.BackLeft.getPower() );
@@ -44,18 +46,18 @@ public class Teleop extends LinearOpMode {
             */
             setDriveMotorPower();
             if(gamepad1.right_trigger > 0.1) {
-            robot.Arm.setPower(armpower * gamepad1.right_trigger);
+              //  robot.Arm.setPower(armpower * gamepad1.right_trigger);
             }
             if(gamepad1.left_trigger > 0.1) {
-            robot.Intake.setPower(intakepower * gamepad1.left_trigger);
+             //   robot.Intake.setPower(intakepower * gamepad1.left_trigger);
             }
             if(gamepad1.x == true) {
-            robot.Bucket.setPosition(1);
+              //  robot.Bucket.setPosition(1);
             }
             if(gamepad1.y == true) {
-            robot.Bucket.setPosition(0);
+              //  robot.Bucket.setPosition(0);
             }
-            
+
 
         }
 
@@ -66,10 +68,10 @@ public class Teleop extends LinearOpMode {
         float strafe = -gamepad1.left_stick_x;
         float drive = gamepad1.left_stick_y;
 
-        float FR = +strafe + drive - turn;
-        float FL = -strafe + drive  + turn;
+        float FR = +strafe - drive - turn;
+        float FL = -strafe -drive  + turn;
         float BR = -strafe - drive - turn;
-        float BL = -strafe  +drive - turn;
+        float BL = +strafe  -drive +turn;
 
         robot.FrontRight.setPower(sensitivity * FR);
         robot.FrontLeft.setPower(sensitivity * FL );
