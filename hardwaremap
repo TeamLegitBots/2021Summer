@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.java;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.motors.GoBILDA5202Series;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -43,12 +43,12 @@ public class hardwaremap{
     public DcMotor FrontLeft = null;
     public DcMotor BackRight = null;
     public DcMotor BackLeft = null;
-    public DcMotor Arm = null;
+   /* public DcMotor Arm = null;
     public DcMotor Carousel = null;
     public DcMotor Intake = null;
     public Servo Bucket = null;
     public Servo Pivot = null;
-    public ColorSensor ColorSensor = null;
+    public ColorSensor ColorSensor = null;*/
 
 
     //public ColorSensor colorSensor = null;
@@ -97,12 +97,12 @@ public class hardwaremap{
         FrontLeft = hwMap.get(DcMotor.class, "LF");
         BackRight = hwMap.get(DcMotor.class, "RB");
         BackLeft = hwMap.get(DcMotor.class, "LB");
-        Arm = hwMap.get(DcMotor.class ,"AM");
+       /* Arm = hwMap.get(DcMotor.class ,"AM");
         Carousel = hwMap.get(DcMotor.class, "CL");
         Intake = hwMap.get(DcMotor.class, "IT");
         Bucket = hwMap.get(Servo.class, "SO");
         Pivot = hwMap.get(Servo.class, "PT");
-        ColorSensor = hwMap.get(ColorSensor.class, "CS");
+        ColorSensor = hwMap.get(ColorSensor.class, "CS");*/
 
 
 
@@ -127,9 +127,9 @@ public class hardwaremap{
         BackLeft.setPower(0);
         BackRight.setPower(0);
         FrontRight.setPower(0);
-        Arm.setPower(0);
+        /*Arm.setPower(0);
         Intake.setPower(0);
-        Bucket.setPosition(0);
+        Bucket.setPosition(0);*/
 
 
 
@@ -142,8 +142,8 @@ public class hardwaremap{
         BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       // Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
@@ -153,16 +153,16 @@ public class hardwaremap{
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
-        Arm.setDirection(DcMotorSimple.Direction.REVERSE);
-        Intake.setDirection(DcMotorSimple.Direction.REVERSE);
+       // Arm.setDirection(DcMotorSimple.Direction.REVERSE);
+       // Intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }
