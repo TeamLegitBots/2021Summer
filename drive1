@@ -1,0 +1,59 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.robot.Robot;
+import com.qualcomm.robotcore.util.Hardware;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+
+
+@TeleOp(name = "drive1")
+//@Disabled
+public class drive1 extends LinearOpMode {
+
+    org.firstinspires.ftc.teamcode.hardwaremap robot = new org.firstinspires.ftc.teamcode.hardwaremap();
+
+    double sensitivity = 1;
+    double armpower = 1;
+    double intakepower = 1;
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+
+        robot.init(hardwareMap);
+
+        robot.FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.Lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        waitForStart();
+        while (opModeIsActive()) {
+            telemetry.addData("FL Power: " , robot.FrontLeft.getPower() );
+            telemetry.addData("BL Power: " , robot.BackLeft.getPower() );
+            telemetry.addData("FR Power: " , robot.FrontRight.getPower() );
+            telemetry.addData("BR Power: " , robot.BackRight.getPower() );
+            telemetry.update();
+
+            float turn = gamepad1.right_stick_x;
+            float strafe = -gamepad1.left_stick_x;
+            float drive = gamepad1.left_stick_y;
+
+            float FR = +strafe - drive - turn;
+            float FL = -strafe - drive + turn;
+            float BR = -strafe - drive - turn;
+            float BL = +strafe - drive + turn;
+
+            robot.FrontRight.setPower(sensitivity * FR);
+            robot.FrontLeft.setPower(sensitivity * FL);
+            robot.BackRight.setPower(sensitivity * BR);
+            robot.BackLeft.setPower(sensitivity * BL);
+        }
+    }
+}
