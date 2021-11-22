@@ -21,6 +21,7 @@ public class Teleop extends LinearOpMode {
     double armpower = 1;
     double intakepower = 1;
 
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -31,32 +32,52 @@ public class Teleop extends LinearOpMode {
         robot.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.Lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
-
+        int originalpos = robot.Lift.getCurrentPosition();
+        int pos_1 = originalpos + 1000;
+        int pos_2 = originalpos;
+        int pos_3 = originalpos + 2000;
+        double wobble_goal_arm_pos = 2;
+        double WAerror=0;
         while (opModeIsActive()) {
             telemetry.addData("FL Power: " , robot.FrontLeft.getPower() );
             telemetry.addData("BL Power: " , robot.BackLeft.getPower() );
             telemetry.addData("FR Power: " , robot.FrontRight.getPower() );
             telemetry.addData("BR Power: " , robot.BackRight.getPower() );
-            /*
-            robot.FrontRight.setPower(sensitivity * FR);
-            robot.FrontLeft.setPower(sensitivity * FL );
-            robot.BackRight.setPower(sensitivity * BR);
-            robot.BackLeft.setPower(sensitivity * BL);
-            */
+            telemetry.update();
+            robot.Lift.setPower(0);
+            robot.BackLeft.setPower(0);
+            robot.FrontLeft.setPower(0);
+            robot.FrontRight.setPower(0);
+            robot.BackRight.setPower(0);
             setDriveMotorPower();
             if(gamepad1.right_trigger > 0.1) {
-              //  robot.Arm.setPower(armpower * gamepad1.right_trigger);
+                //  robot.Arm.setPower(armpower * gamepad1.right_trigger);
             }
-            if(gamepad1.left_trigger > 0.1) {
-             //   robot.Intake.setPower(intakepower * gamepad1.left_trigger);
+            if(gamepad1.left_bumper) {
+                  robot.Intake.setPower(intakepower * gamepad1.left_trigger);
+            }
+            if (gamepad1.right_bumper) {
+                robot.Intake.setPower(-intakepower * gamepad1.right_trigger);
+
             }
             if(gamepad1.x == true) {
-              //  robot.Bucket.setPosition(1);
+                  robot.Bucket.setPosition(1);
             }
             if(gamepad1.y == true) {
-              //  robot.Bucket.setPosition(0);
+                  robot.Bucket.setPosition(0);
             }
+          if (gamepad1.right_trigger >= 0.1) {
+              robot.Lift.setPower(gamepad2.right_trigger * armpower);
+
+          } else if (gamepad2.left_trigger >= 0.1) {
+              robot.Lift.setPower(1);
+          } else {
+              robot.Lift.setPower(0);
+          }
+           // if (originalpos == 1 && (robot.Lift.getCurrentPosition() < pos_1 - WAerror || robot.Lift.getCurrentPosition() > pos_1 + WAerror))
+           // }
 
 
         }
@@ -76,7 +97,7 @@ public class Teleop extends LinearOpMode {
         robot.FrontRight.setPower(sensitivity * FR);
         robot.FrontLeft.setPower(sensitivity * FL );
         robot.BackRight.setPower(sensitivity * BR);
-        robot.BackLeft.setPower(sensitivity * BL);
+        robot.BackLeft.setPower(sensitivity * BL * 2);
     }
 
 }
