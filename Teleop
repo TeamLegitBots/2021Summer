@@ -97,7 +97,7 @@ public class Teleop extends LinearOpMode {
         robot.FrontRight.setPower(sensitivity * FR);
         robot.FrontLeft.setPower(sensitivity * FL );
         robot.BackRight.setPower(sensitivity * BR);
-        robot.BackLeft.setPower(sensitivity * BL * 2);
+        robot.BackLeft.setPower(sensitivity * BL);
     }
 
 }
